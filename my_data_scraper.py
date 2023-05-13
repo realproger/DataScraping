@@ -20,3 +20,29 @@ def extract(page):
     repos_list = soup.find_all('article', {'class' : 'Box-row'})
 
     return repos_list
+
+# Part 2: Transform
+#  taking an array of all the instances of HTML code of the repository row.
+def transform(html_repos):
+    repositories_data = []
+    for repo in html_repos:
+        dev_element = repo.find('h1', {'class': 'h3 lh-condensed'})
+        if dev_element is not None:
+            devs = dev_element.text.strip().split('/')[0].strip()
+        else:
+            devs = 'Unknown Developer'
+            
+        repos_name_element = repo.find('h1', {'class': 'h3 lh-condensed'})
+        if repos_name_element is not None:
+            repo_name = repos_name_element.text.strip().split('/')[1].strip()
+        else:
+            repo_name = 'Unknown Repository Name'
+            
+        stars_el = repo.find('a', {'class': 'Link--muted'})
+        if stars_el is not None:
+            stars = stars_el.text.strip()
+        else:
+            stars = 'Unknown Number of Stars'
+        
+        repositories_data.append({'developer': devs, 'repository_name': repo_name, 'nbr_stars': stars})
+    return repositories_data
