@@ -55,3 +55,20 @@ def format(repositories_data):
         csv_string += f"{data['developer']},{data['repository_name']},{data['nbr_stars']}\n"
 
     return csv_string
+
+
+# Main function to run the complete process
+
+
+def get_top_trending_repositories():
+
+    url = 'https://github.com/trending'
+    page = request_github_trending(url)
+    html_repos = extract(page)
+    repositories_data = transform(html_repos)
+    csv_data = format(repositories_data)
+
+    return csv_data
+
+csv_string = get_top_trending_repositories()
+print(csv_string)
