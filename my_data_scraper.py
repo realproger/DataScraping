@@ -46,3 +46,12 @@ def transform(html_repos):
         
         repositories_data.append({'developer': devs, 'repository_name': repo_name, 'nbr_stars': stars})
     return repositories_data
+
+# Part 3: Format
+def format(repositories_data):
+    csv_string = 'Developer,Repository Name,Number of Stars\n'
+
+    for data in repositories_data:
+        csv_string += f"{data['developer']},{data['repository_name']},{data['nbr_stars']}\n"
+
+    return csv_string
